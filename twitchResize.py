@@ -1,13 +1,22 @@
 # badges 18 x 18 pixels, 36 x 36 pixels, and 72 x 72 pixels
 # emotes 28 x 28 pixels, 56 x 56 pixels, and 112 x 112 pixels
-# A:\\Desktop\\emotes\\
 
-from PIL import Image
+import PIL.Image
 import os
 import sys
+from tkinter import filedialog
+from tkinter import *
 
-path = ('C:\\Users\\Juan\\Desktop\\emote_test\\')
+path = filedialog.askdirectory(
+    initialdir='/', title='Seleccioná la carpeta contenedora') + '/'
+
+path = path.replace('/', '\\')
+
 dirs = os.listdir(path)
+root = Tk()
+root.withdraw()
+print(path)
+os.chdir(path)
 
 emote_big = (112, 112)
 emote_medium = (56, 56)
@@ -34,32 +43,32 @@ def resize():
 def emote_resize():
     for item in dirs:
         if os.path.isfile(path+item):
-            im = Image.open(path+item)
+            im = PIL.Image.open(path+item)
             f, e = os.path.splitext(path+item)
 
-            imResize = im.resize(emote_big, Image.ANTIALIAS)
+            imResize = im.resize(emote_big, PIL.Image.ANTIALIAS)
             imResize.save(f + '112.png', 'PNG', quality=100)
 
-            imResize = im.resize(emote_medium, Image.ANTIALIAS)
+            imResize = im.resize(emote_medium, PIL.Image.ANTIALIAS)
             imResize.save(f + '56.png', 'PNG', quality=100)
 
-            imResize = im.resize(emote_small, Image.ANTIALIAS)
+            imResize = im.resize(emote_small, PIL.Image.ANTIALIAS)
             imResize.save(f + '28.png', 'PNG', quality=100)
 
 
 def badge_resize():
     for item in dirs:
         if os.path.isfile(path+item):
-            im = Image.open(path+item)
+            im = PIL.Image.open(path+item)
             f, e = os.path.splitext(path+item)
 
-            imResize = im.resize(badge_big, Image.ANTIALIAS)
+            imResize = im.resize(badge_big, PIL.Image.ANTIALIAS)
             imResize.save(f + '72.png', 'PNG', quality=100)
 
-            imResize = im.resize(badge_medium, Image.ANTIALIAS)
+            imResize = im.resize(badge_medium, PIL.Image.ANTIALIAS)
             imResize.save(f + '36.png', 'PNG', quality=100)
 
-            imResize = im.resize(badge_small, Image.ANTIALIAS)
+            imResize = im.resize(badge_small, PIL.Image.ANTIALIAS)
             imResize.save(f + '18.png', 'PNG', quality=100)
 
 
@@ -89,4 +98,6 @@ def main():
 
 print('Bienvenido/a al retamañador mágico para cosas de Twitch v1.0')
 print('Elegí el modo para continuar \n')
-main()
+
+if __name__ == '__main__':
+    main()
