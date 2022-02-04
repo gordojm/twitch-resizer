@@ -5,7 +5,7 @@ from tkinter import filedialog
 from tkinter import *
 
 path = filedialog.askdirectory(
-    initialdir='/', title='Seleccioná la carpeta contenedora') + '/'
+    initialdir='/', title='Select images directory') + '/'
 
 path = path.replace('/', '\\')
 
