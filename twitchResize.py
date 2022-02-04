@@ -1,6 +1,3 @@
-# badges 18 x 18 pixels, 36 x 36 pixels, and 72 x 72 pixels
-# emotes 28 x 28 pixels, 56 x 56 pixels, and 112 x 112 pixels
-
 import PIL.Image
 import os
 import sys
@@ -18,86 +15,49 @@ root.withdraw()
 print(path)
 os.chdir(path)
 
-emote_big = (112, 112)
-emote_medium = (56, 56)
-emote_small = (28, 28)
-
-badge_big = (72, 72)
-badge_medium = (36, 36)
-badge_small = (18, 18)
+emote_values = [28, 56, 112]
+badge_values = [18, 36, 72]
 
 
-'''
-def resize():
-    for item in dirs:
-        if os.path.isfile(path+item):
-            im = Image.open(path+item)
-            f, e = os.path.splitext(path+item)
-            imResize = im.resize((200, 200), Image.ANTIALIAS)
-            imResize.save(f + ' resized.jpg', 'JPEG', quality=90)
-'''
-
-##### EMOTES #####
-
-
-def emote_resize():
+def img_resize(type_values):
     for item in dirs:
         if os.path.isfile(path+item):
             im = PIL.Image.open(path+item)
             f, e = os.path.splitext(path+item)
 
-            imResize = im.resize(emote_big, PIL.Image.ANTIALIAS)
-            imResize.save(f + '112.png', 'PNG', quality=100)
-
-            imResize = im.resize(emote_medium, PIL.Image.ANTIALIAS)
-            imResize.save(f + '56.png', 'PNG', quality=100)
-
-            imResize = im.resize(emote_small, PIL.Image.ANTIALIAS)
-            imResize.save(f + '28.png', 'PNG', quality=100)
-
-
-def badge_resize():
-    for item in dirs:
-        if os.path.isfile(path+item):
-            im = PIL.Image.open(path+item)
-            f, e = os.path.splitext(path+item)
-
-            imResize = im.resize(badge_big, PIL.Image.ANTIALIAS)
-            imResize.save(f + '72.png', 'PNG', quality=100)
-
-            imResize = im.resize(badge_medium, PIL.Image.ANTIALIAS)
-            imResize.save(f + '36.png', 'PNG', quality=100)
-
-            imResize = im.resize(badge_small, PIL.Image.ANTIALIAS)
-            imResize.save(f + '18.png', 'PNG', quality=100)
+            for value in type_values:
+                imResize = im.resize((value, value), PIL.Image.ANTIALIAS)
+                imResize.save(f + f'{str(value)}.png', 'PNG', quality=100)
 
 
 def main():
     print('1: Emotes')
     print('2: Badges')
-    print('3: Ayudame no entiendo')
-    opcion = input('Modo elegido: ')
-    if opcion == '3':
-        print('\n \nEste programa cambia el tamaño de imágenes de lienzo cuadrado para usarlas en Twitch')
-        print('Los tamaños de emotes son 28 x 28 pixels, 56 x 56 pixels y 112 x 112 pixels')
-        print('Los tamaños de badges son 18 x 18 pixels, 36 x 36 pixels y 72 x 72 pixels')
-        print('El programa funciona con una ruta predeterminada')
-        print('Hay que poner las imágenes en la carpeta determinada en la ruta y el proceso se realizará automáticamente')
-        print('La ruta actual es ' + str(path) + '\n\n')
+    print('3: Help')
+    print('4: Exit')
+    option = input('')
+    if option == '4':
+        sys.exit()
+    if option == '3':
+        print('\n \nThis script resizes square images to use them as Twitch icons\n'
+              'Emote and custon Points rewards icon sizes are 28x28 px, 56x56 px and 112x112 px\n'
+              'Badge sizes are 18x18 px, 36x36 px and 72x72 px\n'
+              'This script works with a previously selected folder path\n'
+              'Place the images to be resized inside the selected folder\n'
+              'Current path is ' + str(path) + '\n\n')
         main()
-    elif opcion == '1':
-        emote_resize()
-    elif opcion == '2':
-        badge_resize()
+    elif option == '1':
+        img_resize(emote_values)
+    elif option == '2':
+        img_resize(badge_values)
     else:
-        print('No es muy complicado papu, hay 3 opciones nomas\n\n')
+        print('Not a valid option\n\n')
         main()
-    input('Finalizado! Apretá ENTER para salir')
+    input('Done! Press ENTER to exit')
     sys.exit()
 
 
-print('Bienvenido/a al retamañador mágico para cosas de Twitch v1.0')
-print('Elegí el modo para continuar \n')
-
 if __name__ == '__main__':
+    print('twitch-resizer v1.1\n')
+    print('Pick an option to continue\n')
     main()
